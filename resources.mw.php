@@ -49,7 +49,7 @@ return call_user_func( function() {
 
 				'util.inherit',
 
-				'wikibase.datamodel.__namespace',
+				'wikibase.datamodel.init',
 				'wikibase.datamodel.PropertyNoValueSnak',
 				'wikibase.datamodel.PropertySomeValueSnak',
 				'wikibase.datamodel.PropertyValueSnak',
@@ -58,9 +58,9 @@ return call_user_func( function() {
 			)
 		),
 
-		'wikibase.datamodel.__namespace' => $moduleTemplate + array(
+		'wikibase.datamodel.init' => $moduleTemplate + array(
 			'scripts' => array(
-				'namespace.js',
+				'init.js',
 			),
 			'dependencies' => array(
 				'wikibase', // Just for the namespace
@@ -73,7 +73,7 @@ return call_user_func( function() {
 			),
 			'dependencies' => array(
 				'util.inherit',
-				'wikibase.datamodel.__namespace',
+				'wikibase.datamodel.init',
 				'wikibase.datamodel.Snak'
 			)
 		),
@@ -84,7 +84,7 @@ return call_user_func( function() {
 			),
 			'dependencies' => array(
 				'util.inherit',
-				'wikibase.datamodel.__namespace',
+				'wikibase.datamodel.init',
 				'wikibase.datamodel.Snak'
 			)
 		),
@@ -96,7 +96,7 @@ return call_user_func( function() {
 			'dependencies' => array(
 				'mw.ext.dataValues', // DataValues extension
 				'util.inherit',
-				'wikibase.datamodel.__namespace',
+				'wikibase.datamodel.init',
 				'wikibase.datamodel.Snak'
 			)
 		),
@@ -112,7 +112,7 @@ return call_user_func( function() {
 
 				'util.inherit',
 
-				'wikibase.datamodel.__namespace',
+				'wikibase.datamodel.init',
 			)
 		),
 
