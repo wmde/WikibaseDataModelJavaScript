@@ -39,11 +39,6 @@ return call_user_func( function() {
 				'Statement.js',
 			),
 			'dependencies' => array(
-				// Used by wikibase.Claim, wikibase.Entity, wikibase.Reference, wikibase.SnakList,
-				// wikibase.Statement
-				// Methods: $.each, $.extend, $.inArray, $.isArray, $.isPlainObject
-				'jquery',
-
 				// Used by wikibase.EntityId
 				'mw.ext.dataValues', // DataValues extension
 
@@ -106,8 +101,6 @@ return call_user_func( function() {
 				'Snak.js',
 			),
 			'dependencies' => array(
-				'jquery', // $.each, $.extend
-
 				'mw.ext.dataValues', // DataValues extension
 
 				'util.inherit',
