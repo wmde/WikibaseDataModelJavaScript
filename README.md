@@ -6,6 +6,10 @@ at the heart of the [Wikibase software](http://wikiba.se/).
 
 ## Release notes
 
+### 0.3.3 (2014-09-10)
+* Removed jQuery dependencies from test resources
+* Use version 0.6.0 of data-values/javascript
+
 ### 0.3.2 (2014-08-19)
 
 * Added wikibase.datamodel.SiteLink.
