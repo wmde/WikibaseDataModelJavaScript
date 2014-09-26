@@ -1,5 +1,6 @@
 <?php
 
+require_once 'init.php';
 $GLOBALS['wgExtensionCredits']['wikibase'][] = array(
 	'path' => __FILE__,
 	'name' => 'Wikibase DataModel JavaScript',
