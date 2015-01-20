@@ -3,7 +3,7 @@
 
 /**
  * Container for sets of labels, descriptions and aliases.
- * @class wikibase.datamodel.Fingerprint
+ * @class wikibase.datamodel.EntityTerms
  * @since 1.0
  * @licence GNU GPL v2+
  * @author H. Snater < mediawiki@snater.com >
@@ -17,8 +17,8 @@
  * @throws {Error} if a required parameter is not specified properly.
  */
 var SELF
-	= wb.datamodel.Fingerprint
-	= function WbDataModelFingerprint( labels, descriptions, aliases ) {
+	= wb.datamodel.EntityTerms
+	= function WbDataModelEntityTerms( labels, descriptions, aliases ) {
 		labels = labels || new wb.datamodel.TermMap();
 		descriptions = descriptions || new wb.datamodel.TermMap();
 		aliases = aliases || new wb.datamodel.MultiTermMap();
@@ -257,15 +257,15 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {*} fingerprint
+	 * @param {*} entityTerms
 	 * @return {boolean}
 	 */
-	equals: function( fingerprint ) {
-		return fingerprint === this
-			|| fingerprint instanceof SELF
-				&& this._labels.equals( fingerprint.getLabels() )
-				&& this._descriptions.equals( fingerprint.getDescriptions() )
-				&& this._aliases.equals( fingerprint.getAliases() );
+	equals: function( entityTerms ) {
+		return entityTerms === this
+			|| entityTerms instanceof SELF
+				&& this._labels.equals( entityTerms.getLabels() )
+				&& this._descriptions.equals( entityTerms.getDescriptions() )
+				&& this._aliases.equals( entityTerms.getAliases() );
 	}
 
 } );

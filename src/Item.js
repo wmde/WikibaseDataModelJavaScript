@@ -14,7 +14,7 @@ var PARENT = wb.datamodel.Entity;
  * @constructor
  *
  * @param {string} entityId
- * @param {wikibase.datamodel.Fingerprint|null} [fingerprint=new wikibase.datamodel.Fingerprint()]
+ * @param {wikibase.datamodel.EntityTerms|null} [entityTerms=new wikibase.datamodel.EntityTerms()]
  * @param {wikibase.datamodel.StatementGroupSet|null} [statementGroupSet=new wikibase.datamodel.StatementGroupSet()]
  * @param {wikibase.datamodel.SiteLinkSet|null} [siteLinkSet=new wikibase.datamodel.SiteLinkSet()]
  *
@@ -23,14 +23,14 @@ var PARENT = wb.datamodel.Entity;
 var SELF = wb.datamodel.Item = util.inherit(
 	'WbDataModelItem',
 	PARENT,
-	function( entityId, fingerprint, statementGroupSet, siteLinkSet ) {
-		fingerprint = fingerprint || new wb.datamodel.Fingerprint();
+	function( entityId, entityTerms, statementGroupSet, siteLinkSet ) {
+		entityTerms = entityTerms || new wb.datamodel.EntityTerms();
 		statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
 		siteLinkSet = siteLinkSet || new wb.datamodel.SiteLinkSet();
 
 		if(
 			typeof entityId !== 'string'
-			|| !( fingerprint instanceof wb.datamodel.Fingerprint )
+			|| !( entityTerms instanceof wb.datamodel.EntityTerms )
 			|| !( siteLinkSet instanceof wb.datamodel.SiteLinkSet )
 			|| !( statementGroupSet instanceof wb.datamodel.StatementGroupSet )
 		) {
@@ -38,7 +38,7 @@ var SELF = wb.datamodel.Item = util.inherit(
 		}
 
 		this._id = entityId;
-		this._fingerprint = fingerprint;
+		this._entityTerms = entityTerms;
 		this._siteLinkSet = siteLinkSet;
 		this._statementGroupSet = statementGroupSet;
 	},
@@ -101,7 +101,7 @@ var SELF = wb.datamodel.Item = util.inherit(
 	 * @return {boolean}
 	 */
 	isEmpty: function() {
-		return this._fingerprint.isEmpty()
+		return this._entityTerms.isEmpty()
 			&& this._siteLinkSet.isEmpty()
 			&& this._statementGroupSet.isEmpty();
 	},
@@ -114,7 +114,7 @@ var SELF = wb.datamodel.Item = util.inherit(
 		return item === this
 			|| item instanceof SELF
 				&& this._id === item.getId()
-				&& this._fingerprint.equals( item.getFingerprint() )
+				&& this._entityTerms.equals( item.getEntityTerms() )
 				&& this._siteLinkSet.equals( item.getSiteLinks() )
 				&& this._statementGroupSet.equals( item.getStatements() );
 	}

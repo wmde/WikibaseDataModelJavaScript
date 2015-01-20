@@ -5,7 +5,7 @@
 ( function( wb, QUnit, $ ) {
 'use strict';
 
-QUnit.module( 'wikibase.datamodel.Fingerprint' );
+QUnit.module( 'wikibase.datamodel.EntityTerms' );
 
 var testSets = [
 	[
@@ -44,7 +44,7 @@ QUnit.test( 'Constructor (positive)', function( assert ) {
 			};
 
 		assert.ok(
-			fingerprint[functionNames[term][0]](),
+			entityTerms[functionNames[term][0]](),
 			'Test set #' + i + ': Verified result of ' + functionNames[term][0] + '.'
 		);
 
@@ -52,19 +52,19 @@ QUnit.test( 'Constructor (positive)', function( assert ) {
 			var expectedItem = map.getItemByKey( languageCodes[j] );
 
 			assert.ok(
-				fingerprint[functionNames[term][1]]( languageCodes[j], expectedItem ),
+				entityTerms[functionNames[term][1]]( languageCodes[j], expectedItem ),
 				'Test set #' + i + ': Verified result of ' + functionNames[term][1]
 					+ ' for language #' + languageCodes[j] + '.'
 			);
 
 			assert.ok(
-				fingerprint[functionNames[term][2]]( languageCodes[j] ),
+				entityTerms[functionNames[term][2]]( languageCodes[j] ),
 				'Test set #' + i + ': Verified result of ' + functionNames[term][2]
 					+ ' for language #' + languageCodes[j] + '.'
 			);
 
 			assert.ok(
-				fingerprint[functionNames[term][3]]( languageCodes[j] ),
+				entityTerms[functionNames[term][3]]( languageCodes[j] ),
 				'Test set #' + i + ': Verified result of ' + functionNames[term][3]
 					+ ' for language #' + languageCodes[j] + '.'
 			);
@@ -72,13 +72,13 @@ QUnit.test( 'Constructor (positive)', function( assert ) {
 	}
 
 	for( var i = 0; i < testSets.length; i++ ) {
-		var fingerprint = new wb.datamodel.Fingerprint(
+		var entityTerms = new wb.datamodel.EntityTerms(
 			testSets[i][0], testSets[i][1], testSets[i][2]
 		);
 
 		assert.ok(
-			fingerprint instanceof wb.datamodel.Fingerprint,
-			'Test set #' + i +': Instantiated Fingerprint.'
+			entityTerms instanceof wb.datamodel.EntityTerms,
+			'Test set #' + i +': Instantiated EntityTerms.'
 		);
 
 		var maps = {
@@ -108,7 +108,7 @@ QUnit.test( 'Constructor (negative)', function( assert ) {
 	 */
 	function instantiateObject( labels, descriptions, aliasGroups ) {
 		return function() {
-			return new wb.datamodel.Fingerprint( labels, descriptions, aliasGroups );
+			return new wb.datamodel.EntityTerms( labels, descriptions, aliasGroups );
 		};
 	}
 
@@ -123,238 +123,238 @@ QUnit.test( 'Constructor (negative)', function( assert ) {
 } );
 
 QUnit.test( 'setLabel()', function( assert ) {
-	var fingerprint = new wb.datamodel.Fingerprint(),
+	var entityTerms = new wb.datamodel.EntityTerms(),
 		label = new wb.datamodel.Term( 'de', 'de-label' );
 
 	assert.ok(
-		!fingerprint.hasLabel( 'de', label ),
-		'Verified fingerprint not featuring the label that will be added.'
+		!entityTerms.hasLabel( 'de', label ),
+		'Verified entityTerms not featuring the label that will be added.'
 	);
 
 	assert.throws(
 		function() {
-			fingerprint.setLabel( label );
+			entityTerms.setLabel( label );
 		},
 		'Throwing error when trying to set a label without specifying a language code.'
 	);
 
-	fingerprint.setLabel( 'de', label );
+	entityTerms.setLabel( 'de', label );
 
 	assert.ok(
-		fingerprint.hasLabel( 'de', label ),
+		entityTerms.hasLabel( 'de', label ),
 		'Set label.'
 	);
 } );
 
 QUnit.test( 'removeLabel()', function( assert ) {
 	var label = new wb.datamodel.Term( 'de', 'de-label' ),
-		fingerprint = new wb.datamodel.Fingerprint( new wb.datamodel.TermMap( { de: label } ) );
+		entityTerms = new wb.datamodel.EntityTerms( new wb.datamodel.TermMap( { de: label } ) );
 
 	assert.ok(
-		fingerprint.hasLabel( 'de', label ),
-		'Verified fingerprint featuring the label to be removed.'
+		entityTerms.hasLabel( 'de', label ),
+		'Verified entityTerms featuring the label to be removed.'
 	);
 
 	assert.throws(
 		function() {
-			fingerprint.removeLabel( label );
+			entityTerms.removeLabel( label );
 		},
 		'Throwing error when trying to remove a label without specifying a language code.'
 	);
 
-	fingerprint.removeLabel( 'de', label );
+	entityTerms.removeLabel( 'de', label );
 
 	assert.ok(
-		!fingerprint.hasLabel( 'de', label ),
+		!entityTerms.hasLabel( 'de', label ),
 		'Removed label.'
 	);
 } );
 
 QUnit.test( 'removeLabelFor()', function( assert ) {
 	var label = new wb.datamodel.Term( 'de', 'de-label' ),
-		fingerprint = new wb.datamodel.Fingerprint( new wb.datamodel.TermMap( { de: label } ) );
+		entityTerms = new wb.datamodel.EntityTerms( new wb.datamodel.TermMap( { de: label } ) );
 
 	assert.ok(
-		fingerprint.hasLabel( 'de', label ),
-		'Verified fingerprint featuring the label to be removed.'
+		entityTerms.hasLabel( 'de', label ),
+		'Verified entityTerms featuring the label to be removed.'
 	);
 
-	fingerprint.removeLabelFor( 'de' );
+	entityTerms.removeLabelFor( 'de' );
 
 	assert.ok(
-		!fingerprint.hasLabel( 'de', label ),
+		!entityTerms.hasLabel( 'de', label ),
 		'Removed label.'
 	);
 } );
 
 QUnit.test( 'setDescription()', function( assert ) {
-	var fingerprint = new wb.datamodel.Fingerprint(),
+	var entityTerms = new wb.datamodel.EntityTerms(),
 		description = new wb.datamodel.Term( 'de', 'de-description' );
 
 	assert.ok(
-		!fingerprint.hasDescription( 'de', description ),
-		'Verified fingerprint not featuring the description that will be added.'
+		!entityTerms.hasDescription( 'de', description ),
+		'Verified entityTerms not featuring the description that will be added.'
 	);
 
 	assert.throws(
 		function() {
-			fingerprint.setDescription( description );
+			entityTerms.setDescription( description );
 		},
 		'Throwing error when trying to set a description without specifying a language code.'
 	);
 
-	fingerprint.setDescription( 'de', description );
+	entityTerms.setDescription( 'de', description );
 
 	assert.ok(
-		fingerprint.hasDescription( 'de', description ),
+		entityTerms.hasDescription( 'de', description ),
 		'Set description.'
 	);
 } );
 
 QUnit.test( 'removeDescription()', function( assert ) {
 	var description = new wb.datamodel.Term( 'de', 'de-description' ),
-		fingerprint = new wb.datamodel.Fingerprint(
+		entityTerms = new wb.datamodel.EntityTerms(
 			null,
 			new wb.datamodel.TermMap( { de: description } )
 		);
 
 	assert.ok(
-		fingerprint.hasDescription( 'de', description ),
-		'Verified fingerprint featuring the description to be removed.'
+		entityTerms.hasDescription( 'de', description ),
+		'Verified entityTerms featuring the description to be removed.'
 	);
 
 	assert.throws(
 		function() {
-			fingerprint.removeDescription( description );
+			entityTerms.removeDescription( description );
 		},
 		'Throwing error when trying to remove a description without specifying a language code.'
 	);
 
-	fingerprint.removeDescription( 'de', description );
+	entityTerms.removeDescription( 'de', description );
 
 	assert.ok(
-		!fingerprint.hasDescription( 'de', description ),
+		!entityTerms.hasDescription( 'de', description ),
 		'Removed description.'
 	);
 } );
 
 QUnit.test( 'removeDescriptionFor()', function( assert ) {
 	var description = new wb.datamodel.Term( 'de', 'de-description' ),
-		fingerprint = new wb.datamodel.Fingerprint(
+		entityTerms = new wb.datamodel.EntityTerms(
 			null,
 			new wb.datamodel.TermMap( { de: description } )
 		);
 
 	assert.ok(
-		fingerprint.hasDescription( 'de', description ),
-		'Verified fingerprint featuring the description to be removed.'
+		entityTerms.hasDescription( 'de', description ),
+		'Verified entityTerms featuring the description to be removed.'
 	);
 
-	fingerprint.removeDescriptionFor( description.getLanguageCode() );
+	entityTerms.removeDescriptionFor( description.getLanguageCode() );
 
 	assert.ok(
-		!fingerprint.hasDescription( 'de', description ),
+		!entityTerms.hasDescription( 'de', description ),
 		'Removed description.'
 	);
 } );
 
 QUnit.test( 'setAliases()', function( assert ) {
-	var fingerprint = new wb.datamodel.Fingerprint(),
+	var entityTerms = new wb.datamodel.EntityTerms(),
 		deAliases = new wb.datamodel.MultiTerm( 'de', ['de-alias'] ),
 		enAliases = new wb.datamodel.MultiTerm( 'en', ['en-alias'] ),
 		aliases = new wb.datamodel.MultiTermMap( { en: enAliases } );
 
 	assert.ok(
-		!fingerprint.hasAliases( 'de', deAliases ),
-		'Verified fingerprint not featuring the aliases that will be added.'
+		!entityTerms.hasAliases( 'de', deAliases ),
+		'Verified entityTerms not featuring the aliases that will be added.'
 	);
 
 	assert.throws(
 		function() {
-			fingerprint.setAliases( deAliases );
+			entityTerms.setAliases( deAliases );
 		},
 		'Throwing error when trying to set a MultiTerm without specifying a language code.'
 	);
 
-	fingerprint.setAliases( 'de', deAliases );
+	entityTerms.setAliases( 'de', deAliases );
 
 	assert.ok(
-		fingerprint.hasAliases( 'de', deAliases ),
+		entityTerms.hasAliases( 'de', deAliases ),
 		'Set aliases passing a MultiTerm object.'
 	);
 
 	assert.throws(
 		function() {
-			fingerprint.setAliases( 'de', aliases );
+			entityTerms.setAliases( 'de', aliases );
 		},
 		'Throwing error when trying to set a MultiTermMap with a language code.'
 	);
 
 	assert.ok(
-		!fingerprint.hasAliases( 'en', enAliases ),
-		'Verified fingerprint not featuring the aliases that will be added.'
+		!entityTerms.hasAliases( 'en', enAliases ),
+		'Verified entityTerms not featuring the aliases that will be added.'
 	);
 
-	fingerprint.setAliases( aliases );
+	entityTerms.setAliases( aliases );
 
 	assert.ok(
-		fingerprint.hasAliases( 'en', enAliases ),
+		entityTerms.hasAliases( 'en', enAliases ),
 		'Set aliases passing a MultiTermMap object.'
 	);
 } );
 
 QUnit.test( 'removeAliases()', function( assert ) {
 	var aliases = new wb.datamodel.MultiTerm( 'de', ['de-alias'] ),
-		fingerprint = new wb.datamodel.Fingerprint(
+		entityTerms = new wb.datamodel.EntityTerms(
 			null,
 			null,
 			new wb.datamodel.MultiTermMap( { de: aliases } )
 		);
 
 	assert.ok(
-		fingerprint.hasAliases( 'de', aliases ),
-		'Verified fingerprint featuring the aliases to be removed.'
+		entityTerms.hasAliases( 'de', aliases ),
+		'Verified entityTerms featuring the aliases to be removed.'
 	);
 
 	assert.throws(
 		function() {
-			fingerprint.removeAliases( aliases );
+			entityTerms.removeAliases( aliases );
 		},
 		'Throwing error when trying to remove aliases without specifying a language code.'
 	);
 
-	fingerprint.removeAliases( 'de', aliases );
+	entityTerms.removeAliases( 'de', aliases );
 
 	assert.ok(
-		!fingerprint.hasAliases( 'de', aliases ),
+		!entityTerms.hasAliases( 'de', aliases ),
 		'Removed aliases.'
 	);
 } );
 
 QUnit.test( 'removeAliasesFor()', function( assert ) {
 	var aliases = new wb.datamodel.MultiTerm( 'de', ['de-alias'] ),
-		fingerprint = new wb.datamodel.Fingerprint(
+		entityTerms = new wb.datamodel.EntityTerms(
 			null,
 			null,
 			new wb.datamodel.MultiTermMap( { de: aliases } )
 		);
 
 	assert.ok(
-		fingerprint.hasAliases( 'de', aliases ),
-		'Verified fingerprint featuring the aliases to be removed.'
+		entityTerms.hasAliases( 'de', aliases ),
+		'Verified entityTerms featuring the aliases to be removed.'
 	);
 
-	fingerprint.removeAliasesFor( 'de' );
+	entityTerms.removeAliasesFor( 'de' );
 
 	assert.ok(
-		!fingerprint.hasAliases( 'de', aliases ),
+		!entityTerms.hasAliases( 'de', aliases ),
 		'Removed aliases.'
 	);
 } );
 
 QUnit.test( 'isEmpty()', function( assert ) {
 	assert.ok(
-		( new wb.datamodel.Fingerprint(
+		( new wb.datamodel.EntityTerms(
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.MultiTermMap()
@@ -363,7 +363,7 @@ QUnit.test( 'isEmpty()', function( assert ) {
 	);
 
 	assert.ok(
-		!( new wb.datamodel.Fingerprint(
+		!( new wb.datamodel.EntityTerms(
 			new wb.datamodel.TermMap( { en: new wb.datamodel.Term( 'en', 'en-string' ) } ),
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.MultiTermMap()
@@ -372,7 +372,7 @@ QUnit.test( 'isEmpty()', function( assert ) {
 	);
 
 	assert.ok(
-		!( new wb.datamodel.Fingerprint(
+		!( new wb.datamodel.EntityTerms(
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.TermMap( { en: new wb.datamodel.Term( 'en', 'en-string' ) } ),
 			new wb.datamodel.MultiTermMap()
@@ -381,7 +381,7 @@ QUnit.test( 'isEmpty()', function( assert ) {
 	);
 
 	assert.ok(
-		!( new wb.datamodel.Fingerprint(
+		!( new wb.datamodel.EntityTerms(
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.MultiTermMap( {
@@ -394,25 +394,25 @@ QUnit.test( 'isEmpty()', function( assert ) {
 
 QUnit.test( 'equals()', function( assert ) {
 	for( var i = 0; i < testSets.length; i++ ) {
-		var fingerprint1 = new wb.datamodel.Fingerprint(
+		var entityTerms1 = new wb.datamodel.EntityTerms(
 			testSets[i][0], testSets[i][1], testSets[i][2]
 		);
 
 		for( var j = 0; j < testSets.length; j++ ) {
-			var fingerprint2 = new wb.datamodel.Fingerprint(
+			var entityTerms2 = new wb.datamodel.EntityTerms(
 				testSets[j][0], testSets[j][1], testSets[j][2]
 			);
 
 			if( j === i ) {
 				assert.ok(
-					fingerprint1.equals( fingerprint2 ),
+					entityTerms1.equals( entityTerms2 ),
 					'Test set #' + i + ' equals test set #' + j + '.'
 				);
 				continue;
 			}
 
 			assert.ok(
-				!fingerprint1.equals( fingerprint2 ),
+				!entityTerms1.equals( entityTerms2 ),
 				'Test set #' + i + ' does not equal test set #' + j + '.'
 			);
 		}
