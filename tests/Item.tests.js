@@ -10,7 +10,7 @@ QUnit.module( 'wikibase.datamodel.Item' );
 var testSets = [
 	[
 		'Q1',
-		new wb.datamodel.Fingerprint(
+		new wb.datamodel.EntityTerms(
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.MultiTermMap()
@@ -19,7 +19,7 @@ var testSets = [
 		new wb.datamodel.SiteLinkSet()
 	], [
 		'Q2',
-		new wb.datamodel.Fingerprint(
+		new wb.datamodel.EntityTerms(
 			new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'de-label' ) } ),
 			new wb.datamodel.TermMap( { en: new wb.datamodel.Term( 'de', 'de-description' ) } ),
 			new wb.datamodel.MultiTermMap( {
@@ -57,7 +57,7 @@ QUnit.test( 'isEmpty()', function( assert ) {
 	assert.ok(
 		( new wb.datamodel.Item(
 			'Q1',
-			new wb.datamodel.Fingerprint(
+			new wb.datamodel.EntityTerms(
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.MultiTermMap()
@@ -71,7 +71,7 @@ QUnit.test( 'isEmpty()', function( assert ) {
 	assert.ok(
 		!( new wb.datamodel.Item(
 			'Q1',
-			new wb.datamodel.Fingerprint(
+			new wb.datamodel.EntityTerms(
 				new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'de-term' ) } ),
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.MultiTermMap()
@@ -79,13 +79,13 @@ QUnit.test( 'isEmpty()', function( assert ) {
 			new wb.datamodel.StatementGroupSet(),
 			new wb.datamodel.SiteLinkSet()
 		) ).isEmpty(),
-		'Returning FALSE when Fingerprint is not empty.'
+		'Returning FALSE when EntityTerms is not empty.'
 	);
 
 	assert.ok(
 		!( new wb.datamodel.Item(
 			'Q1',
-			new wb.datamodel.Fingerprint(
+			new wb.datamodel.EntityTerms(
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.MultiTermMap()
@@ -99,7 +99,7 @@ QUnit.test( 'isEmpty()', function( assert ) {
 	assert.ok(
 		!( new wb.datamodel.Item(
 			'Q1',
-			new wb.datamodel.Fingerprint(
+			new wb.datamodel.EntityTerms(
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.MultiTermMap()

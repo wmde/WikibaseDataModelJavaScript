@@ -11,7 +11,7 @@ var testSets = [
 	[
 		'P1',
 		'i am a data type id',
-		new wb.datamodel.Fingerprint(
+		new wb.datamodel.EntityTerms(
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.TermMap(),
 			new wb.datamodel.MultiTermMap()
@@ -20,7 +20,7 @@ var testSets = [
 	], [
 		'P2',
 		'i am a data type id',
-		new wb.datamodel.Fingerprint(
+		new wb.datamodel.EntityTerms(
 			new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'de-label' ) } ),
 			new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'de-description' ) } ),
 			new wb.datamodel.MultiTermMap( {
@@ -56,7 +56,7 @@ QUnit.test( 'isEmpty()', function( assert ) {
 		( new wb.datamodel.Property(
 			'P1',
 			'i am a data type id',
-			new wb.datamodel.Fingerprint(
+			new wb.datamodel.EntityTerms(
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.MultiTermMap()
@@ -70,21 +70,21 @@ QUnit.test( 'isEmpty()', function( assert ) {
 		!( new wb.datamodel.Property(
 			'P1',
 			'i am a data type id',
-			new wb.datamodel.Fingerprint(
+			new wb.datamodel.EntityTerms(
 				new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'de-term' ) } ),
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.MultiTermMap()
 			),
 			new wb.datamodel.StatementGroupSet()
 		) ).isEmpty(),
-		'Returning FALSE when Fingerprint is not empty.'
+		'Returning FALSE when EntityTerms is not empty.'
 	);
 
 	assert.ok(
 		!( new wb.datamodel.Property(
 			'P1',
 			'i am a data type id',
-			new wb.datamodel.Fingerprint(
+			new wb.datamodel.EntityTerms(
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.TermMap(),
 				new wb.datamodel.MultiTermMap()

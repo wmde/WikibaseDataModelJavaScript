@@ -2,7 +2,7 @@
 	'use strict';
 
 /**
- * Abstract Entity base class featuring an id and a fingerprint.
+ * Abstract `Entity` base class featuring an id and an `EntityTerms` object.
  * @class wikibase.datamodel.Entity
  * @abstract
  * @since 0.3
@@ -32,10 +32,10 @@ $.extend( SELF.prototype, {
 	_id: null,
 
 	/**
-	 * @property {wikibase.datamodel.Fingerprint}
+	 * @property {wikibase.datamodel.EntityTerms}
 	 * @private
 	 */
-	_fingerprint: null,
+	_entityTerms: null,
 
 	/**
 	 * @return {string}
@@ -45,17 +45,17 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @return {wikibase.datamodel.Fingerprint}
+	 * @return {wikibase.datamodel.EntityTerms}
 	 */
-	getFingerprint: function() {
-		return this._fingerprint;
+	getEntityTerms: function() {
+		return this._entityTerms;
 	},
 
 	/**
-	 * @param {wikibase.datamodel.Fingerprint} fingerprint
+	 * @param {wikibase.datamodel.EntityTerms} entityTerms
 	 */
-	setFingerprint: function( fingerprint ) {
-		this._fingerprint = fingerprint;
+	setEntityTerms: function( entityTerms ) {
+		this._entityTerms = entityTerms;
 	},
 
 	/**

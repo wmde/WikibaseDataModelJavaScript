@@ -27,7 +27,7 @@ return call_user_func( function() {
 				'wikibase.datamodel.ClaimList',
 				'wikibase.datamodel.Entity',
 				'wikibase.datamodel.EntityId',
-				'wikibase.datamodel.Fingerprint',
+				'wikibase.datamodel.EntityTerms',
 				'wikibase.datamodel.Item',
 				'wikibase.datamodel.MultiTerm',
 				'wikibase.datamodel.MultiTermMap',
@@ -127,9 +127,9 @@ return call_user_func( function() {
 			),
 		),
 
-		'wikibase.datamodel.Fingerprint' => $moduleTemplate + array(
+		'wikibase.datamodel.EntityTerms' => $moduleTemplate + array(
 			'scripts' => array(
-				'Fingerprint.js',
+				'EntityTerms.js',
 			),
 			'dependencies' => array(
 				'wikibase.datamodel.__namespace',
@@ -165,7 +165,7 @@ return call_user_func( function() {
 				'util.inherit',
 				'wikibase.datamodel.__namespace',
 				'wikibase.datamodel.Entity',
-				'wikibase.datamodel.Fingerprint',
+				'wikibase.datamodel.EntityTerms',
 				'wikibase.datamodel.SiteLinkSet',
 				'wikibase.datamodel.StatementGroupSet',
 			),
@@ -220,7 +220,7 @@ return call_user_func( function() {
 				'util.inherit',
 				'wikibase.datamodel.__namespace',
 				'wikibase.datamodel.Entity',
-				'wikibase.datamodel.Fingerprint',
+				'wikibase.datamodel.EntityTerms',
 				'wikibase.datamodel.StatementGroupSet',
 			),
 		),
