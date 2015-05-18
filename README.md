@@ -5,13 +5,14 @@
 at the heart of the [Wikibase software](http://wikiba.se/).
 
 ![Wikibase JavaScript Data Model UML diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Wikibase_JavaScript_Data_Model_1.0.svg/600px-Wikibase_JavaScript_Data_Model_1.0.svg.png)
-https://commons.wikimedia.org/wiki/File:Wikibase_JavaScript_Data_Model_1.0.svg
+		https://commons.wikimedia.org/wiki/File:Wikibase_JavaScript_Data_Model_1.0.svg
 
 ## Release notes
 
-### 1.0.2 (dev)
+### 1.0.2 (2015-05-21)
 
 #### Enhancements
+* Adapt to DataValuesJavaScript 0.7.0.
 * SnakList.merge() accepts null.
 * Updated code documentation for being able to automatically generate a proper documentation using JSDuck.
 
