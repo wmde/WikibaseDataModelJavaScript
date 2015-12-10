@@ -54,7 +54,7 @@ QUnit.test( 'Constructor (positive)', function( assert ) {
 			var expectedItem = map.getItemByKey( languageCodes[j] );
 
 			assert.ok(
-				fingerprint[functionNames[term][1]]( languageCodes[j], expectedItem ),
+				fingerprint[functionNames[term][1]]( expectedItem ),
 				'Test set #' + i + ': Verified result of ' + functionNames[term][1]
 					+ ' for language #' + languageCodes[j] + '.'
 			);
@@ -126,30 +126,23 @@ QUnit.test( 'Constructor (negative)', function( assert ) {
 } );
 
 QUnit.test( 'setLabel()', function( assert ) {
-	assert.expect( 4 );
+	assert.expect( 3 );
 	var fingerprint = new wb.datamodel.Fingerprint(),
 		label = new wb.datamodel.Term( 'de', 'de-label' );
 
 	assert.ok(
-		!fingerprint.hasLabel( 'de', label ),
+		!fingerprint.hasLabel( label ),
 		'Verified fingerprint not featuring the label that will be added.'
 	);
 
-	assert.throws(
-		function() {
-			fingerprint.setLabel( label );
-		},
-		'Throwing error when trying to set a label without specifying a language code.'
-	);
-
-	fingerprint.setLabel( 'de', label );
+	fingerprint.setLabel( label );
 
 	assert.ok(
-		fingerprint.hasLabel( 'de', label ),
+		fingerprint.hasLabel( label ),
 		'Set label.'
 	);
 
-	fingerprint.setLabel( 'de', new wb.datamodel.Term( 'de', '' ) );
+	fingerprint.setLabel( new wb.datamodel.Term( 'de', '' ) );
 
 	assert.ok(
 		!fingerprint.hasLabelFor( 'de' ),
@@ -158,26 +151,19 @@ QUnit.test( 'setLabel()', function( assert ) {
 } );
 
 QUnit.test( 'removeLabel()', function( assert ) {
-	assert.expect( 3 );
+	assert.expect( 2 );
 	var label = new wb.datamodel.Term( 'de', 'de-label' ),
 		fingerprint = new wb.datamodel.Fingerprint( new wb.datamodel.TermMap( { de: label } ) );
 
 	assert.ok(
-		fingerprint.hasLabel( 'de', label ),
+		fingerprint.hasLabel( label ),
 		'Verified fingerprint featuring the label to be removed.'
 	);
 
-	assert.throws(
-		function() {
-			fingerprint.removeLabel( label );
-		},
-		'Throwing error when trying to remove a label without specifying a language code.'
-	);
-
-	fingerprint.removeLabel( 'de', label );
+	fingerprint.removeLabel( label );
 
 	assert.ok(
-		!fingerprint.hasLabel( 'de', label ),
+		!fingerprint.hasLabel( label ),
 		'Removed label.'
 	);
 } );
@@ -188,43 +174,36 @@ QUnit.test( 'removeLabelFor()', function( assert ) {
 		fingerprint = new wb.datamodel.Fingerprint( new wb.datamodel.TermMap( { de: label } ) );
 
 	assert.ok(
-		fingerprint.hasLabel( 'de', label ),
+		fingerprint.hasLabel( label ),
 		'Verified fingerprint featuring the label to be removed.'
 	);
 
 	fingerprint.removeLabelFor( 'de' );
 
 	assert.ok(
-		!fingerprint.hasLabel( 'de', label ),
+		!fingerprint.hasLabel( label ),
 		'Removed label.'
 	);
 } );
 
 QUnit.test( 'setDescription()', function( assert ) {
-	assert.expect( 4 );
+	assert.expect( 3 );
 	var fingerprint = new wb.datamodel.Fingerprint(),
 		description = new wb.datamodel.Term( 'de', 'de-description' );
 
 	assert.ok(
-		!fingerprint.hasDescription( 'de', description ),
+		!fingerprint.hasDescription( description ),
 		'Verified fingerprint not featuring the description that will be added.'
 	);
 
-	assert.throws(
-		function() {
-			fingerprint.setDescription( description );
-		},
-		'Throwing error when trying to set a description without specifying a language code.'
-	);
-
-	fingerprint.setDescription( 'de', description );
+	fingerprint.setDescription( description );
 
 	assert.ok(
-		fingerprint.hasDescription( 'de', description ),
+		fingerprint.hasDescription( description ),
 		'Set description.'
 	);
 
-	fingerprint.setDescription( 'de', new wb.datamodel.Term( 'de', '' ) );
+	fingerprint.setDescription( new wb.datamodel.Term( 'de', '' ) );
 
 	assert.ok(
 		!fingerprint.hasDescriptionFor( 'de' ),
@@ -233,7 +212,7 @@ QUnit.test( 'setDescription()', function( assert ) {
 } );
 
 QUnit.test( 'removeDescription()', function( assert ) {
-	assert.expect( 3 );
+	assert.expect( 2 );
 	var description = new wb.datamodel.Term( 'de', 'de-description' ),
 		fingerprint = new wb.datamodel.Fingerprint(
 			null,
@@ -241,21 +220,14 @@ QUnit.test( 'removeDescription()', function( assert ) {
 		);
 
 	assert.ok(
-		fingerprint.hasDescription( 'de', description ),
+		fingerprint.hasDescription( description ),
 		'Verified fingerprint featuring the description to be removed.'
 	);
 
-	assert.throws(
-		function() {
-			fingerprint.removeDescription( description );
-		},
-		'Throwing error when trying to remove a description without specifying a language code.'
-	);
-
-	fingerprint.removeDescription( 'de', description );
+	fingerprint.removeDescription( description );
 
 	assert.ok(
-		!fingerprint.hasDescription( 'de', description ),
+		!fingerprint.hasDescription( description ),
 		'Removed description.'
 	);
 } );
@@ -269,41 +241,34 @@ QUnit.test( 'removeDescriptionFor()', function( assert ) {
 		);
 
 	assert.ok(
-		fingerprint.hasDescription( 'de', description ),
+		fingerprint.hasDescription( description ),
 		'Verified fingerprint featuring the description to be removed.'
 	);
 
 	fingerprint.removeDescriptionFor( description.getLanguageCode() );
 
 	assert.ok(
-		!fingerprint.hasDescription( 'de', description ),
+		!fingerprint.hasDescription( description ),
 		'Removed description.'
 	);
 } );
 
 QUnit.test( 'setAliases()', function( assert ) {
-	assert.expect( 8 );
+	assert.expect( 6 );
 	var fingerprint = new wb.datamodel.Fingerprint(),
 		deAliases = new wb.datamodel.MultiTerm( 'de', ['de-alias'] ),
 		enAliases = new wb.datamodel.MultiTerm( 'en', ['en-alias'] ),
 		aliases = new wb.datamodel.MultiTermMap( { en: enAliases } );
 
 	assert.ok(
-		!fingerprint.hasAliases( 'de', deAliases ),
+		!fingerprint.hasAliases( deAliases ),
 		'Verified fingerprint not featuring the aliases that will be added.'
 	);
 
-	assert.throws(
-		function() {
-			fingerprint.setAliases( deAliases );
-		},
-		'Throwing error when trying to set a MultiTerm without specifying a language code.'
-	);
-
-	fingerprint.setAliases( 'de', deAliases );
+	fingerprint.setAliases( deAliases );
 
 	assert.ok(
-		fingerprint.hasAliases( 'de', deAliases ),
+		fingerprint.hasAliases( deAliases ),
 		'Set aliases passing a MultiTerm object.'
 	);
 
@@ -315,34 +280,27 @@ QUnit.test( 'setAliases()', function( assert ) {
 	);
 
 	assert.ok(
-		!fingerprint.hasAliases( 'en', enAliases ),
+		!fingerprint.hasAliases( enAliases ),
 		'Verified fingerprint not featuring the aliases that will be added.'
 	);
 
 	fingerprint.setAliases( aliases );
 
 	assert.ok(
-		fingerprint.hasAliases( 'en', enAliases ),
+		fingerprint.hasAliases( enAliases ),
 		'Set aliases passing a MultiTermMap object.'
 	);
 
-	fingerprint.setAliases( 'en', new wb.datamodel.MultiTerm( 'en', [] ) );
+	fingerprint.setAliases( new wb.datamodel.MultiTerm( 'en', [] ) );
 
 	assert.ok(
 		!fingerprint.hasAliasesFor( 'en' ),
 		'Set aliases with empty list removes aliases.'
 	);
-
-	assert.throws(
-		function() {
-			fingerprint.setAliases( new wb.datamodel.MultiTerm( 'en', [] ) );
-		},
-		'Throwing error when trying to set an empty MultiTerm without specifying a language code.'
-	);
 } );
 
 QUnit.test( 'removeAliases()', function( assert ) {
-	assert.expect( 3 );
+	assert.expect( 2 );
 	var aliases = new wb.datamodel.MultiTerm( 'de', ['de-alias'] ),
 		fingerprint = new wb.datamodel.Fingerprint(
 			null,
@@ -351,21 +309,14 @@ QUnit.test( 'removeAliases()', function( assert ) {
 		);
 
 	assert.ok(
-		fingerprint.hasAliases( 'de', aliases ),
+		fingerprint.hasAliases( aliases ),
 		'Verified fingerprint featuring the aliases to be removed.'
 	);
 
-	assert.throws(
-		function() {
-			fingerprint.removeAliases( aliases );
-		},
-		'Throwing error when trying to remove aliases without specifying a language code.'
-	);
-
-	fingerprint.removeAliases( 'de', aliases );
+	fingerprint.removeAliases( aliases );
 
 	assert.ok(
-		!fingerprint.hasAliases( 'de', aliases ),
+		!fingerprint.hasAliases( aliases ),
 		'Removed aliases.'
 	);
 } );
@@ -380,14 +331,14 @@ QUnit.test( 'removeAliasesFor()', function( assert ) {
 		);
 
 	assert.ok(
-		fingerprint.hasAliases( 'de', aliases ),
+		fingerprint.hasAliases( aliases ),
 		'Verified fingerprint featuring the aliases to be removed.'
 	);
 
 	fingerprint.removeAliasesFor( 'de' );
 
 	assert.ok(
-		!fingerprint.hasAliases( 'de', aliases ),
+		!fingerprint.hasAliases( aliases ),
 		'Removed aliases.'
 	);
 } );
