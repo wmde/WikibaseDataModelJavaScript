@@ -7,6 +7,7 @@
  * @since 1.0
  * @licence GNU GPL v2+
  * @author H. Snater < mediawiki@snater.com >
+ * @author Bene* < benestar.wikimedia@gmail.com >
  *
  * @constructor
  *
@@ -71,12 +72,11 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string} languageCode
 	 * @param {wikibase.datamodel.Term} label
 	 * @return {boolean}
 	 */
-	hasLabel: function( languageCode, label ) {
-		return this._labels.hasItem( languageCode, label );
+	hasLabel: function( label ) {
+		return this._labels.hasItem( label.getLanguageCode(), label );
 	},
 
 	/**
@@ -88,19 +88,17 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string} languageCode
-	 * @param {wikibase.datamodel.Term} term
+	 * @param {wikibase.datamodel.Term} label
 	 */
-	setLabel: function( languageCode, term ) {
-		this._labels.setItem( languageCode, term );
+	setLabel: function( label ) {
+		this._labels.setItem( label.getLanguageCode(), label );
 	},
 
 	/**
-	 * @param {string} languageCode
 	 * @param {wikibase.datamodel.Term} label
 	 */
-	removeLabel: function( languageCode, label ) {
-		this._labels.removeItem( languageCode, label );
+	removeLabel: function( label ) {
+		this._labels.removeItem( label.getLanguageCode(), label );
 	},
 
 	/**
@@ -126,12 +124,11 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string} languageCode
 	 * @param {wikibase.datamodel.Term} description
 	 * @return {boolean}
 	 */
-	hasDescription: function( languageCode, description ) {
-		return this._descriptions.hasItem( languageCode, description );
+	hasDescription: function( description ) {
+		return this._descriptions.hasItem( description.getLanguageCode(), description );
 	},
 
 	/**
@@ -143,19 +140,17 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string} languageCode
-	 * @param {wikibase.datamodel.Term} term
+	 * @param {wikibase.datamodel.Term} description
 	 */
-	setDescription: function( languageCode, term ) {
-		this._descriptions.setItem( languageCode, term );
+	setDescription: function( description ) {
+		this._descriptions.setItem( description.getLanguageCode(), description );
 	},
 
 	/**
-	 * @param {string} languageCode
 	 * @param {wikibase.datamodel.Term} description
 	 */
-	removeDescription: function( languageCode, description ) {
-		this._descriptions.removeItem( languageCode, description );
+	removeDescription: function( description ) {
+		this._descriptions.removeItem( description.getLanguageCode(), description );
 	},
 
 	/**
@@ -181,12 +176,11 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string} languageCode
 	 * @param {wikibase.datamodel.MultiTerm} aliases
 	 * @return {boolean}
 	 */
-	hasAliases: function( languageCode, aliases ) {
-		return this._aliases.hasItem( languageCode, aliases );
+	hasAliases: function( aliases ) {
+		return this._aliases.hasItem( aliases.getLanguageCode(), aliases );
 	},
 
 	/**
@@ -198,46 +192,21 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string|wikibase.datamodel.MultiTermMap} languageCodeOrAliases
-	 * @param {wikibase.datamodel.MultiTerm} [aliases]
-	 *
-	 * @throws {Error} when passing a MultiTerm without a language code.
-	 * @throws {Error} when passing a MultiTermMap with a language code.
-	 * @throws {Error} when neither passing a MultiTerm nor a MultiTermMap object.
+	 * @param {wikibase.datamodel.MultiTerm|wikibase.datamodel.MultiTermMap} aliases
 	 */
-	setAliases: function( languageCodeOrAliases, aliases ) {
-		var languageCode;
-
-		if( typeof languageCodeOrAliases === 'string' ) {
-			languageCode = languageCodeOrAliases;
-		} else {
-			aliases = languageCodeOrAliases;
-		}
-
-		if( aliases instanceof wb.datamodel.MultiTerm ) {
-			if( !languageCode ) {
-				throw new Error( 'Language code the wb.datamodel.MultiTerm object should be set '
-					+ 'for needs to be specified' );
-			}
-			this._aliases.setItem( languageCode, aliases );
-		} else if( aliases instanceof wb.datamodel.MultiTermMap ) {
-			if( languageCode ) {
-				throw new Error( 'Unable to handle language code when setting a '
-					+ 'wb.datamodel.MultiTermMap' );
-			}
+	setAliases: function( aliases ) {
+		if( aliases instanceof wb.datamodel.MultiTermMap ) {
 			this._aliases = aliases;
 		} else {
-			throw new Error( 'Aliases need to be specified as wb.datamodel.MultiTerm or '
-				+ 'wb.datamodel.MultiTermMap instance' );
+			this._aliases.setItem( aliases.getLanguageCode(), aliases );
 		}
 	},
 
 	/**
-	 * @param {string} languageCode
 	 * @param {wikibase.datamodel.MultiTerm} aliases
 	 */
-	removeAliases: function( languageCode, aliases ) {
-		this._aliases.removeItem( languageCode, aliases );
+	removeAliases: function( aliases ) {
+		this._aliases.removeItem( aliases.getLanguageCode(), aliases );
 	},
 
 	/**
