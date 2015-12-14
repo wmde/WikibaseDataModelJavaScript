@@ -92,7 +92,11 @@ $.extend( SELF.prototype, {
 	 * @param {wikibase.datamodel.Term} term
 	 */
 	setLabel: function( languageCode, term ) {
-		this._labels.setItem( languageCode, term );
+		if ( label.getText() === '' ) {
+			this._labels.removeItemByKey( languageCode );
+		} else {
+			this._labels.setItem( languageCode, label );
+		}
 	},
 
 	/**
@@ -147,7 +151,11 @@ $.extend( SELF.prototype, {
 	 * @param {wikibase.datamodel.Term} term
 	 */
 	setDescription: function( languageCode, term ) {
-		this._descriptions.setItem( languageCode, term );
+		if ( description.getText() === '' ) {
+			this._descriptions.removeItemByKey( languageCode );
+		} else {
+			this._descriptions.setItem( languageCode, description );
+		}
 	},
 
 	/**
@@ -226,6 +234,8 @@ $.extend( SELF.prototype, {
 					+ 'wb.datamodel.MultiTermMap' );
 			}
 			this._aliases = aliases;
+		} else if ( aliases.isEmpty() ) {
+			this._aliases.removeItemByKey( aliases.getLanguageCode() );
 		} else {
 			throw new Error( 'Aliases need to be specified as wb.datamodel.MultiTerm or '
 				+ 'wb.datamodel.MultiTermMap instance' );

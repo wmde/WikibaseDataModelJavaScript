@@ -33,7 +33,7 @@ QUnit.test( 'Constructor (positive)', function( assert ) {
 	var i, fingerprint;
 
 	/**
-	 * @param {QUnit.assert} assert
+	 * @param {Object} assert
 	 * @param {string} term
 	 * @param {wikibase.datamodel.Map} map
 	 */
@@ -126,9 +126,10 @@ QUnit.test( 'Constructor (negative)', function( assert ) {
 } );
 
 QUnit.test( 'setLabel()', function( assert ) {
-	assert.expect( 3 );
+	assert.expect( 4 );
 	var fingerprint = new wb.datamodel.Fingerprint(),
-		label = new wb.datamodel.Term( 'de', 'de-label' );
+		label = new wb.datamodel.Term( 'de', 'de-label'),
+		emptyLabel = new wb.datamodel.Term( 'de', '' );
 
 	assert.ok(
 		!fingerprint.hasLabel( 'de', label ),
@@ -148,6 +149,13 @@ QUnit.test( 'setLabel()', function( assert ) {
 		fingerprint.hasLabel( 'de', label ),
 		'Set label.'
 	);
+
+	fingerprint.setLabel( 'de', emptyLabel );
+
+	assert.ok(
+		!fingerprint.hasLabelFor( 'de' ),
+		'Set label with empty term removes label.'
+	)
 } );
 
 QUnit.test( 'removeLabel()', function( assert ) {
@@ -194,9 +202,10 @@ QUnit.test( 'removeLabelFor()', function( assert ) {
 } );
 
 QUnit.test( 'setDescription()', function( assert ) {
-	assert.expect( 3 );
+	assert.expect( 4 );
 	var fingerprint = new wb.datamodel.Fingerprint(),
-		description = new wb.datamodel.Term( 'de', 'de-description' );
+		description = new wb.datamodel.Term( 'de', 'de-description'),
+		emptyDescription = new wb.datamodel.Term( 'de', '' );
 
 	assert.ok(
 		!fingerprint.hasDescription( 'de', description ),
@@ -215,6 +224,13 @@ QUnit.test( 'setDescription()', function( assert ) {
 	assert.ok(
 		fingerprint.hasDescription( 'de', description ),
 		'Set description.'
+	);
+
+	fingerprint.setDescription( 'de', emptyDescription );
+
+	assert.ok(
+		!fingerprint.hasDescriptionFor( 'de' ),
+		'Set description with empty term removes description.'
 	);
 } );
 
