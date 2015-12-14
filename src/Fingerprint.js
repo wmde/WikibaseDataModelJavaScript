@@ -91,7 +91,11 @@ $.extend( SELF.prototype, {
 	 * @param {wikibase.datamodel.Term} label
 	 */
 	setLabel: function( label ) {
-		this._labels.setItem( label.getLanguageCode(), label );
+		if ( label.getText() === '' ) {
+			this._labels.removeItemByKey( label.getLanguageCode() );
+		} else {
+			this._labels.setItem( label.getLanguageCode(), label );
+		}
 	},
 
 	/**
@@ -143,7 +147,11 @@ $.extend( SELF.prototype, {
 	 * @param {wikibase.datamodel.Term} description
 	 */
 	setDescription: function( description ) {
-		this._descriptions.setItem( description.getLanguageCode(), description );
+		if ( description.getText() === '' ) {
+			this._descriptions.removeItemByKey( description.getLanguageCode() );
+		} else {
+			this._descriptions.setItem( description.getLanguageCode(), description );
+		}
 	},
 
 	/**
@@ -197,6 +205,8 @@ $.extend( SELF.prototype, {
 	setAliases: function( aliases ) {
 		if( aliases instanceof wb.datamodel.MultiTermMap ) {
 			this._aliases = aliases;
+		} else if ( aliases.isEmpty() ) {
+			this._aliases.removeItemByKey( aliases.getLanguageCode() );
 		} else {
 			this._aliases.setItem( aliases.getLanguageCode(), aliases );
 		}
