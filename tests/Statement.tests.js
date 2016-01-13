@@ -81,36 +81,18 @@ QUnit.test( 'Rank evaluation on instantiation', function( assert ) {
 	);
 } );
 
-QUnit.test( 'setRank() & getRank()', function( assert ) {
-	assert.expect( 3 );
+QUnit.test( 'getRank()', function( assert ) {
+	assert.expect( 1 );
 	var statement = new wb.datamodel.Statement(
-		new wb.datamodel.Claim(
-			new wb.datamodel.PropertyNoValueSnak( 'P1' )
-		)
+		new wb.datamodel.Claim( new wb.datamodel.PropertyNoValueSnak( 'P1' ) ),
+		null,
+		wb.datamodel.Statement.RANK.PREFERRED
 	);
 
-	statement.setRank( wb.datamodel.Statement.RANK.PREFERRED );
-
-	assert.equal(
-		statement.getRank(),
+	assert.strictEqual(
 		wb.datamodel.Statement.RANK.PREFERRED,
+		statement.getRank(),
 		'Assigned \'preferred\' rank.'
-	);
-
-	statement.setRank( wb.datamodel.Statement.RANK.DEPRECATED );
-
-	assert.equal(
-		statement.getRank(),
-		wb.datamodel.Statement.RANK.DEPRECATED,
-		'Assigned \'deprecated\' rank.'
-	);
-
-	statement.setRank( wb.datamodel.Statement.RANK.NORMAL );
-
-	assert.equal(
-		statement.getRank(),
-		wb.datamodel.Statement.RANK.NORMAL,
-		'Assigned \'normal\' rank.'
 	);
 } );
 

@@ -14,10 +14,20 @@
  * @param {wikibase.datamodel.SnakList|null} [qualifiers=new wikibase.datamodel.SnakList()]
  * @param {string|null} [guid=null] The Global Unique Identifier of this Claim. Can be null if this
  *        is a new Claim, not yet stored in the database and associated with some entity.
+ *
+ * @throws {Error} if parameter is not a Snak instance.
+ * @throws {Error} if parameter is not a SnakList instance.
  */
 var SELF = wb.datamodel.Claim = function WbDataModelClaim( mainSnak, qualifiers, guid ) {
-	this.setMainSnak( mainSnak );
-	this.setQualifiers( qualifiers || new wb.datamodel.SnakList() );
+	if( !( mainSnak instanceof wb.datamodel.Snak ) ) {
+		throw new Error( 'Main snak needs to be a Snak instance' );
+	}
+	if( qualifiers && !( qualifiers instanceof wb.datamodel.SnakList ) ) {
+		throw new Error( 'Qualifiers have to be a SnakList object' );
+	}
+
+	this._mainSnak = mainSnak;
+	this._qualifiers = qualifiers || new wb.datamodel.SnakList();
 	this._guid = guid || null;
 };
 
@@ -63,36 +73,10 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * Overwrites the current main Snak.
-	 *
-	 * @param {wikibase.datamodel.Snak} mainSnak
-	 *
-	 * @throws {Error} if parameter is not a Snak instance.
-	 */
-	setMainSnak: function( mainSnak ) {
-		if( !( mainSnak instanceof wb.datamodel.Snak ) ) {
-			throw new Error( 'Main snak needs to be a Snak instance' );
-		}
-		this._mainSnak = mainSnak;
-	},
-
-	/**
 	 * @return {wikibase.datamodel.SnakList}
 	 */
 	getQualifiers: function() {
 		return this._qualifiers;
-	},
-
-	/**
-	 * @param {wikibase.datamodel.SnakList} qualifiers
-	 *
-	 * @throws {Error} if parameter is not a SnakList instance.
-	 */
-	setQualifiers: function( qualifiers ) {
-		if( !( qualifiers instanceof wb.datamodel.SnakList ) ) {
-			throw new Error( 'Qualifiers have to be a SnakList object' );
-		}
-		this._qualifiers = qualifiers;
 	},
 
 	/**

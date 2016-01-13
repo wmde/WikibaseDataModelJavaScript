@@ -51,29 +51,26 @@ QUnit.test( 'Constructor', function( assert ) {
 	);
 } );
 
-QUnit.test( 'setMainSnak() & getMainSnak()', function( assert ) {
+QUnit.test( 'getMainSnak()', function( assert ) {
 	assert.expect( 1 );
-	var claim = new wb.datamodel.Claim( new wb.datamodel.PropertyNoValueSnak( 'p1' ) ),
-		snak = new wb.datamodel.PropertyNoValueSnak( 'p2' );
+	var snak = new wb.datamodel.PropertyNoValueSnak( 'p1' ),
+		claim = new wb.datamodel.Claim( snak );
 
-	claim.setMainSnak( snak );
-
-	assert.ok(
-		claim.getMainSnak().equals( snak ),
-		'Altered main Snak.'
+	assert.strictEqual(
+		claim.getMainSnak(),
+		snak,
+		'Verified main snak being set.'
 	);
 } );
 
-QUnit.test( 'setQualifiers() & getQualifiers()', function( assert ) {
+QUnit.test( 'getQualifiers()', function( assert ) {
 	assert.expect( 1 );
-	var claim = new wb.datamodel.Claim( new wb.datamodel.PropertyNoValueSnak( 'p1' ) ),
-		qualifiers = new wb.datamodel.SnakList( [
+	var qualifiers = new wb.datamodel.SnakList( [
 			new wb.datamodel.PropertyNoValueSnak( 'p10' ),
 			new wb.datamodel.PropertyNoValueSnak( 'p11' ),
 			new wb.datamodel.PropertySomeValueSnak( 'p10' )
-		] );
-
-	claim.setQualifiers( qualifiers );
+		] ),
+		claim = new wb.datamodel.Claim( new wb.datamodel.PropertyNoValueSnak( 'p1' ), qualifiers );
 
 	assert.strictEqual(
 		claim.getQualifiers(),

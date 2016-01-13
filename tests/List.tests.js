@@ -118,105 +118,24 @@ QUnit.test( 'hasItem()', function( assert ) {
 	);
 } );
 
-QUnit.test( 'addItem() & length attribute', function( assert ) {
-	assert.expect( 3 );
-	var items = getTestItems( 3 ),
-		newItems = getTestItems( 1 ),
-		list = new wb.datamodel.List( TestItem, items );
-
-	assert.equal(
-		list.length,
-		3,
-		'List contains 3 items.'
-	);
-
-	list.addItem( newItems[0] );
-
-	assert.ok(
-		list.hasItem( newItems[0] ),
-		'Added item.'
-	);
-
-	assert.equal(
-		list.length,
-		4,
-		'Increased length.'
-	);
-} );
-
-QUnit.test( 'removeItem()', function( assert ) {
-	assert.expect( 4 );
-	var items = getTestItems( 3 ),
-		unsetItems = getTestItems( 1 ),
-		list = new wb.datamodel.List( TestItem, items );
-
-	assert.equal(
-		list.length,
-		3,
-		'List contains 3 items.'
-	);
-
-	assert.throws(
-		function() {
-			list.removeItem( unsetItems[0] );
-		},
-		'Throwing error when trying to remove an item not set.'
-	);
-
-	list.removeItem( items[1] );
-
-	assert.ok(
-		!list.hasItem( items[1] ),
-		'Removed item.'
-	);
-
-	assert.equal(
-		list.length,
-		2,
-		'List contains 2 items.'
-	);
-} );
-
 QUnit.test( 'isEmpty()', function( assert ) {
-	assert.expect( 3 );
-	var items = getTestItems( 1 ),
-		list = new wb.datamodel.List( TestItem );
+	assert.expect( 1 );
+	var list = new wb.datamodel.List( TestItem );
 
 	assert.ok(
 		list.isEmpty(),
 		'Verified isEmpty() returning TRUE.'
 	);
-
-	list.addItem( items[0] );
-
-	assert.ok(
-		!list.isEmpty(),
-		'Verified isEmpty() returning FALSE.'
-	);
-
-	list.removeItem( items[0] );
-
-	assert.ok(
-		list.isEmpty(),
-		'TRUE after removing last Claim.'
-	);
 } );
 
 QUnit.test( 'equals()', function( assert ) {
-	assert.expect( 2 );
+	assert.expect( 1 );
 	var items = getTestItems( 3 ),
 		list = new wb.datamodel.List( TestItem, items );
 
 	assert.ok(
 		list.equals( new wb.datamodel.List( TestItem, items ) ),
 		'Verified equals() retuning TRUE.'
-	);
-
-	list.addItem( getTestItems( 1 )[0] );
-
-	assert.ok(
-		!list.equals( new wb.datamodel.List( TestItem, items ) ),
-		'FALSE after adding another item object.'
 	);
 } );
 

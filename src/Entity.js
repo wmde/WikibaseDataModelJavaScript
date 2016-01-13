@@ -55,13 +55,6 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {wikibase.datamodel.Fingerprint} fingerprint
-	 */
-	setFingerprint: function( fingerprint ) {
-		this._fingerprint = fingerprint;
-	},
-
-	/**
 	 * Returns what type of Entity this is.
 	 *
 	 * @return string

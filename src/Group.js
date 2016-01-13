@@ -79,9 +79,9 @@ $.extend( SELF.prototype, {
 
 	/**
 	 * @param {wikibase.datamodel.GroupableCollection} groupableCollection
-	 *
 	 * @throws {Error} when passed GroupableCollection instance contains an item whose key does not
 	 *         match the key registered with the Group instance.
+	 * @private
 	 */
 	setItemContainer: function( groupableCollection ) {
 		if( !( groupableCollection instanceof wb.datamodel.GroupableCollection ) ) {
