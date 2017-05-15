@@ -3,10 +3,23 @@
 
 var PARENT = wb.datamodel.Entity;
 
+function mixin(theMixin) {
+	return {
+		into: function mixinInto(target) {
+			for ( var method in theMixin.prototype ) {
+				if (theMixin.prototype.hasOwnProperty(method) && !target.prototype.hasOwnProperty( method ) ) {
+					target.prototype[ method ] = theMixin.prototype[ method ];
+				}
+			}
+		}
+	};
+}
+
 /**
  * Entity derivative featuring statements and site links.
  * @class wikibase.datamodel.Item
  * @extends wikibase.datamodel.Entity
+ * @mixes wikibase.datamodel.StatementProvider
  * @since 1.0
  * @license GPL-2.0+
  * @author H. Snater < mediawiki@snater.com >
@@ -40,7 +53,7 @@ var SELF = wb.datamodel.Item = util.inherit(
 		this._id = entityId;
 		this._fingerprint = fingerprint;
 		this._siteLinkSet = siteLinkSet;
-		this._statementGroupSet = statementGroupSet;
+		wb.datamodel.StatementProvider.call( this, statementGroupSet );
 	},
 {
 	/**
@@ -48,12 +61,6 @@ var SELF = wb.datamodel.Item = util.inherit(
 	 * @private
 	 */
 	_siteLinkSet: null,
-
-	/**
-	 * @property {wikibase.datamodel.StatementGroupSet}
-	 * @private
-	 */
-	_statementGroupSet: null,
 
 	/**
 	 * @return {wikibase.datamodel.SiteLinkSet}
@@ -74,27 +81,6 @@ var SELF = wb.datamodel.Item = util.inherit(
 	 */
 	removeSiteLink: function( siteLink ) {
 		this._siteLinkSet.removeSiteLink( siteLink );
-	},
-
-	/**
-	 * @return {wikibase.datamodel.StatementGroupSet}
-	 */
-	getStatements: function() {
-		return this._statementGroupSet;
-	},
-
-	/**
-	 * @param {wikibase.datamodel.Statement} statement
-	 */
-	addStatement: function( statement ) {
-		this._statementGroupSet.addStatement( statement );
-	},
-
-	/**
-	 * @param {wikibase.datamodel.Statement} statement
-	 */
-	removeStatement: function( statement ) {
-		this._statementGroupSet.removeStatement( statement );
 	},
 
 	/**
@@ -120,6 +106,7 @@ var SELF = wb.datamodel.Item = util.inherit(
 	}
 } );
 
+	mixin(wb.datamodel.StatementProvider).into(wb.datamodel.Item);
 /**
  * @inheritdoc
  * @property {string} [TYPE='item']
