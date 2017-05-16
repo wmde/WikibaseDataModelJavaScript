@@ -10,6 +10,10 @@
 	 */
 	var SELF = wb.datamodel.StatementProvider = function WbDataModelStatementProvider( statementGroupSet ) {
 		statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
+
+		if( !( statementGroupSet instanceof wb.datamodel.StatementGroupSet ) ) {
+			throw new Error( 'Given argument `statementGroupSet` is not instance of `wb.datamodel.StatementGroupSet`' );
+		}
 		this._statementGroupSet = statementGroupSet;
 	};
 
@@ -19,7 +23,7 @@
 	$.extend( SELF.prototype, {
 		/**
 		 * @property {wikibase.datamodel.StatementGroupSet}
-		 * @private
+		 * @protected
 		 */
 		_statementGroupSet: null,
 
