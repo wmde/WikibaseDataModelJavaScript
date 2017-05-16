@@ -45,7 +45,6 @@ var SELF = wb.datamodel.Item = util.inherit(
 			typeof entityId !== 'string'
 			|| !( fingerprint instanceof wb.datamodel.Fingerprint )
 			|| !( siteLinkSet instanceof wb.datamodel.SiteLinkSet )
-			|| !( statementGroupSet instanceof wb.datamodel.StatementGroupSet )
 		) {
 			throw new Error( 'Required parameter(s) missing or not defined properly' );
 		}
@@ -106,7 +105,7 @@ var SELF = wb.datamodel.Item = util.inherit(
 	}
 } );
 
-	mixin(wb.datamodel.StatementProvider).into(wb.datamodel.Item);
+mixin(wb.datamodel.StatementProvider).into(wb.datamodel.Item);
 /**
  * @inheritdoc
  * @property {string} [TYPE='item']
