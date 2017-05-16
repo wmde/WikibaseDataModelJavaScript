@@ -3,18 +3,6 @@
 
 var PARENT = wb.datamodel.Entity;
 
-function mix(mixin) {
-	return {
-		into: function mixinInto(target) {
-			for ( var method in mixin.prototype ) {
-				if (mixin.prototype.hasOwnProperty(method) && !target.prototype.hasOwnProperty( method ) ) {
-					target.prototype[ method ] = mixin.prototype[ method ];
-				}
-			}
-		}
-	};
-}
-
 /**
  * Entity derivative featuring statements and site links.
  * @class wikibase.datamodel.Item
@@ -105,7 +93,7 @@ var SELF = wb.datamodel.Item = util.inherit(
 	}
 } );
 
-mix(wb.datamodel.StatementProvider).into(wb.datamodel.Item);
+wb.datamodel.StatementProvider.mixInto( SELF );
 /**
  * @inheritdoc
  * @property {string} [TYPE='item']

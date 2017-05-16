@@ -61,4 +61,13 @@
 		}
 	} );
 
+	SELF.mixInto = function (target) {
+		var mixin = SELF;
+		for ( var method in mixin.prototype ) {
+			if (mixin.prototype.hasOwnProperty(method) && !target.prototype.hasOwnProperty( method ) ) {
+				target.prototype[ method ] = mixin.prototype[ method ];
+			}
+		}
+	};
+
 }( wikibase, jQuery ) );
