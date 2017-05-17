@@ -7,6 +7,7 @@ var PARENT = wb.datamodel.Entity;
  * Entity derivative featuring a data type and statements.
  * @class wikibase.datamodel.Property
  * @extends wikibase.datamodel.Entity
+ * @mixes wikibase.datamodel.StatementProvider
  * @since 1.0
  * @license GPL-2.0+
  * @author H. Snater < mediawiki@snater.com >
