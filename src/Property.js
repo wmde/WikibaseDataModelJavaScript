@@ -55,6 +55,10 @@ var SELF = wb.datamodel.Property = util.inherit(
 		return this._dataTypeId;
 	},
 
+	getStatements: function() {
+		return this._statementGroupSet;
+	},
+  
 	/**
 	 * @return {boolean}
 	 */
