@@ -71,14 +71,6 @@ var SELF = wb.datamodel.Item = util.inherit(
 	},
 
 	/**
-
-	 * @return {wikibase.datamodel.StatementGroupSet}
-	 */
-	getStatements: function() {
-		return this._statementGroupSet;
-	},
-
-	/**
 	 * @return {boolean}
 	 */
 	isEmpty: function() {
