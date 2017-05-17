@@ -28,6 +28,8 @@
 		_statementGroupSet: null,
 
 		/**
+		 * Returns all statements of given entity. Statements on sub-entities are NOT included.
+		 *
 		 * @return {wikibase.datamodel.StatementGroupSet}
 		 */
 		getStatements: function () {
@@ -35,11 +37,14 @@
 		},
 
 		/**
+		 * Finds a statement with given GUID either on current entity or on one of sub-entities.
+		 *
 		 * @param {string} guid
 		 *
-		 * @return {wikibase.datamodel.Statement|null}
+		 * @return {wikibase.datamodel.Statement|null} Statement that has given GUID. Returned statement can belong to the entity itself as
+		 *  well as to one of the sub-entities. `null` if entity is not found.
 		 */
-		getStatementByGuid: function (guid) {
+		findStatementByGuid: function (guid) {
 			var res = null;
 			this._statementGroupSet.each( function() {
 				this.getItemContainer().each( function() {
