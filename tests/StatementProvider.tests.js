@@ -18,8 +18,8 @@
 
 		var statementProvider = new TestStatementProvider( statementGroupSet );
 
-		assert.equal( statementProvider.getStatementByGuid( 'existing guid' ), statement );
-		assert.equal( statementProvider.getStatementByGuid( 'nonexistent guid' ), null );
+		assert.equal( statementProvider.findStatementByGuid( 'existing guid' ), statement );
+		assert.equal( statementProvider.findStatementByGuid( 'nonexistent guid' ), null );
 	} );
 
 
