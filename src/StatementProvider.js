@@ -2,7 +2,8 @@
 	'use strict';
 
 	/**
-	 * Combination of a claim, a rank and references.
+	 * Something that has statements. Applicable to entities.
+	 *
 	 * @mixin wikibase.datamodel.StatementProvider
 	 *
 	 * @param {wikibase.datamodel.StatementGroupSet|null} [statementGroupSet=new wikibase.datamodel.StatementGroupSet()]
@@ -17,9 +18,6 @@
 		this._statementGroupSet = statementGroupSet;
 	};
 
-	/**
-	 * @class wikibase.datamodel.Statement
-	 */
 	$.extend( SELF.prototype, {
 		/**
 		 * @property {wikibase.datamodel.StatementGroupSet}
@@ -42,7 +40,7 @@
 		 * @param {string} guid
 		 *
 		 * @return {wikibase.datamodel.Statement|null} Statement that has given GUID. Returned statement can belong to the entity itself as
-		 *  well as to one of the sub-entities. `null` if entity is not found.
+		 *  well as to one of the sub-entities. `null` if statement is not found.
 		 */
 		findStatementByGuid: function (guid) {
 			var res = null;
