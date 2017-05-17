@@ -47,7 +47,11 @@
 		removeStatement: function ( statement ) {
 			this._statementGroupSet.removeStatement( statement );
 		},
-
+		/**
+		 * @param {string} guid
+		 *
+		 * @return {wikibase.datamodel.Statement|null}
+		 */
 		getStatementByGuid: function (guid) {
 			var res = null;
 			this._statementGroupSet.each( function() {
