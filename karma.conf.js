@@ -23,6 +23,7 @@ module.exports = function ( config ) {
 			'src/Term.js',
 			'src/Set.js',
 			'src/List.js',
+			'src/StatementProvider.js',
 			'vendor/data-values/javascript/lib/globeCoordinate/globeCoordinate.js',
 			'vendor/data-values/javascript/lib/globeCoordinate/globeCoordinate.GlobeCoordinate.js',
 			'vendor/data-values/javascript/src/valueFormatters/valueFormatters.js',
