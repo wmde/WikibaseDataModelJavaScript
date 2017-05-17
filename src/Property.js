@@ -7,6 +7,7 @@ var PARENT = wb.datamodel.Entity;
  * Entity derivative featuring a data type and statements.
  * @class wikibase.datamodel.Property
  * @extends wikibase.datamodel.Entity
+ * @mixes wikibase.datamodel.StatementProvider
  * @since 1.0
  * @license GPL-2.0+
  * @author H. Snater < mediawiki@snater.com >
@@ -25,7 +26,6 @@ var SELF = wb.datamodel.Property = util.inherit(
 	PARENT,
 	function( entityId, dataTypeId, fingerprint, statementGroupSet ) {
 		fingerprint = fingerprint || new wb.datamodel.Fingerprint();
-		statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
 
 		if(
 			typeof entityId !== 'string'
@@ -39,7 +39,7 @@ var SELF = wb.datamodel.Property = util.inherit(
 		this._id = entityId;
 		this._fingerprint = fingerprint;
 		this._dataTypeId = dataTypeId;
-		this._statementGroupSet = statementGroupSet;
+		wb.datamodel.StatementProvider.call( this, statementGroupSet );
 	},
 {
 	/**
@@ -49,25 +49,12 @@ var SELF = wb.datamodel.Property = util.inherit(
 	_dataTypeId: null,
 
 	/**
-	 * @property {wikibase.datamodel.StatementGroupSet}
-	 * @private
-	 */
-	_statementGroupSet: null,
-
-	/**
 	 * @return {string}
 	 */
 	getDataTypeId: function() {
 		return this._dataTypeId;
 	},
-
-	/**
-	 * @return {wikibase.datamodel.StatementGroupSet}
-	 */
-	getStatements: function() {
-		return this._statementGroupSet;
-	},
-
+  
 	/**
 	 * @return {boolean}
 	 */
@@ -89,6 +76,7 @@ var SELF = wb.datamodel.Property = util.inherit(
 	}
 } );
 
+wb.datamodel.StatementProvider.mixInto(SELF);
 
 /**
  * @inheritdoc

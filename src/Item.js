@@ -7,6 +7,7 @@ var PARENT = wb.datamodel.Entity;
  * Entity derivative featuring statements and site links.
  * @class wikibase.datamodel.Item
  * @extends wikibase.datamodel.Entity
+ * @mixes wikibase.datamodel.StatementProvider
  * @since 1.0
  * @license GPL-2.0+
  * @author H. Snater < mediawiki@snater.com >
@@ -32,7 +33,6 @@ var SELF = wb.datamodel.Item = util.inherit(
 			typeof entityId !== 'string'
 			|| !( fingerprint instanceof wb.datamodel.Fingerprint )
 			|| !( siteLinkSet instanceof wb.datamodel.SiteLinkSet )
-			|| !( statementGroupSet instanceof wb.datamodel.StatementGroupSet )
 		) {
 			throw new Error( 'Required parameter(s) missing or not defined properly' );
 		}
@@ -40,7 +40,7 @@ var SELF = wb.datamodel.Item = util.inherit(
 		this._id = entityId;
 		this._fingerprint = fingerprint;
 		this._siteLinkSet = siteLinkSet;
-		this._statementGroupSet = statementGroupSet;
+		wb.datamodel.StatementProvider.call( this, statementGroupSet );
 	},
 {
 	/**
@@ -48,12 +48,6 @@ var SELF = wb.datamodel.Item = util.inherit(
 	 * @private
 	 */
 	_siteLinkSet: null,
-
-	/**
-	 * @property {wikibase.datamodel.StatementGroupSet}
-	 * @private
-	 */
-	_statementGroupSet: null,
 
 	/**
 	 * @return {wikibase.datamodel.SiteLinkSet}
@@ -74,13 +68,6 @@ var SELF = wb.datamodel.Item = util.inherit(
 	 */
 	removeSiteLink: function( siteLink ) {
 		this._siteLinkSet.removeSiteLink( siteLink );
-	},
-
-	/**
-	 * @return {wikibase.datamodel.StatementGroupSet}
-	 */
-	getStatements: function() {
-		return this._statementGroupSet;
 	},
 
 	/**
@@ -106,6 +93,7 @@ var SELF = wb.datamodel.Item = util.inherit(
 	}
 } );
 
+wb.datamodel.StatementProvider.mixInto( SELF );
 /**
  * @inheritdoc
  * @property {string} [TYPE='item']

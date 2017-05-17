@@ -112,6 +112,15 @@ return call_user_func( function() {
 			),
 			'dependencies' => array(
 				'util.inherit',
+				'wikibase.datamodel.__namespace'
+			),
+		),
+
+		'wikibase.datamodel.StatementProvider' => $moduleTemplate + array(
+			'scripts' => array(
+				'StatementProvider.js',
+			),
+			'dependencies' => array(
 				'wikibase.datamodel.__namespace',
 			),
 		),
@@ -168,6 +177,7 @@ return call_user_func( function() {
 				'wikibase.datamodel.Fingerprint',
 				'wikibase.datamodel.SiteLinkSet',
 				'wikibase.datamodel.StatementGroupSet',
+				'wikibase.datamodel.StatementProvider',
 			),
 		),
 
@@ -222,6 +232,7 @@ return call_user_func( function() {
 				'wikibase.datamodel.Entity',
 				'wikibase.datamodel.Fingerprint',
 				'wikibase.datamodel.StatementGroupSet',
+				'wikibase.datamodel.StatementProvider',
 			),
 		),
 
