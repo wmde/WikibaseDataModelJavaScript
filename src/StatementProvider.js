@@ -35,19 +35,6 @@
 		},
 
 		/**
-		 * @param {wikibase.datamodel.Statement} statement
-		 */
-		addStatement: function ( statement ) {
-			this._statementGroupSet.addStatement( statement );
-		},
-
-		/**
-		 * @param {wikibase.datamodel.Statement} statement
-		 */
-		removeStatement: function ( statement ) {
-			this._statementGroupSet.removeStatement( statement );
-		},
-		/**
 		 * @param {string} guid
 		 *
 		 * @return {wikibase.datamodel.Statement|null}
