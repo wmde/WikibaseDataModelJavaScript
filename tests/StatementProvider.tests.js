@@ -2,9 +2,11 @@
 	'use strict';
 
 	QUnit.module( 'wikibase.datamodel.StatementProvider' );
-	var TestStatementProvider = $.extend( wb.datamodel.StatementProvider, function ( statementGroupSet ) {
+	var TestStatementProvider = function ( statementGroupSet ) {
 		wb.datamodel.StatementProvider.call( this, statementGroupSet );
-	} );
+	};
+
+	wb.datamodel.StatementProvider.mixInto( TestStatementProvider );
 
 	QUnit.test( 'Can find the statement by guid', function ( assert ) {
 		var statementGroupSet = new wb.datamodel.StatementGroupSet();
