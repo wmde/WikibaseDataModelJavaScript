@@ -8,7 +8,7 @@ at the heart of the [Wikibase software](http://wikiba.se/).
 
 ## Release notes
 
-### 3.1.0 (dev)
+### 3.1.0 (2017-09-04)
 
 * Added a `hash` parameter to the constructors of
   `Snak`, `PropertyValueSnak`, `PropertySomeValueSnak` and `PropertyNoValueSnak`,
