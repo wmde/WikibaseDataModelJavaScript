@@ -8,7 +8,7 @@ at the heart of the [Wikibase software](http://wikiba.se/).
 
 ## Release notes
 
-### 4.0.0 (dev)
+### 4.0.0 (2017-10-09)
 
 * Made the library a pure JavaScript library.
 * Removed MediaWiki ResourceLoader module definitions.
