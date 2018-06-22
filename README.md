@@ -17,6 +17,43 @@ the corresponding serializer, and send back to the API.
 
 ## Release notes
 
+### 5.0.0 (dev)
+
+* The whole data model is now immutable:
+** Removed `Claim.setMainSnak`
+** Removed `Claim.setQualifiers`
+** Removed `Entity.setFingerprint`
+** Removed `Fingerprint.removeAliases`
+** Removed `Fingerprint.removeAliasesFor`
+** Removed `Fingerprint.removeDescription`
+** Removed `Fingerprint.removeDescriptionFor`
+** Removed `Fingerprint.removeLabel`
+** Removed `Fingerprint.removeLabelFor`
+** Removed `Fingerprint.setAliases`
+** Removed `Fingerprint.setDescription`
+** Removed `Fingerprint.setLabel`
+** Made `Group.setItemContainer` private
+** Removed `Item.addSiteLink`
+** Removed `Item.addStatement`
+** Removed `Item.removeSiteLink`
+** Removed `Item.removeStatement`
+** Removed `MultiTerm.setLanguageCode`
+** Removed `MultiTerm.setTexts`
+** Removed `Property.addStatement`
+** Removed `Property.removeStatement`
+** Removed `SiteLink.setBadges`
+** Removed `SnakList.getValidMoveIndices`
+** Removed `SnakList.merge`
+** Removed `SnakList.move`
+** Removed `SnakList.moveDown`
+** Removed `SnakList.moveUp`
+** Removed `Statement.setClaim`
+** Made `Statement.setRank` private
+** Removed `Statement.setReferences`
+** Removed `Term.setLanguageCode`
+** Removed `Term.setText`
+
+
 ### 4.0.0 (2017-10-09)
 
 * Made the library a pure JavaScript library.

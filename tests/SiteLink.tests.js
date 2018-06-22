@@ -25,37 +25,13 @@ QUnit.test( 'Basic tests', function( assert ) {
 } );
 
 QUnit.test( 'Badges', function( assert ) {
-	assert.expect( 4 );
-	var siteLink = new wb.datamodel.SiteLink( 'test-id', 'test-page' ),
-		badges = ['Q123', 'Q456'];
+	assert.expect( 1 );
+	var badges = ['Q123', 'Q456'],
+		siteLink = new wb.datamodel.SiteLink( 'test-id', 'test-page', badges );
 
-	assert.equal(
-		siteLink.getBadges().length,
-		0,
-		'Instantiated site link with no badges.'
-	);
-
-	siteLink.setBadges( badges );
-
-	assert.equal(
-		badges.join( ',' ),
-		siteLink.getBadges().join( ',' ),
-		'Set badges.'
-	);
-
-	siteLink.setBadges();
-
-	assert.equal(
-		siteLink.getBadges().length,
-		0,
-		'Removed badges.'
-	);
-
-	siteLink = new wb.datamodel.SiteLink( 'test-id', 'test-page', badges );
-
-	assert.equal(
-		badges.join( ',' ),
-		siteLink.getBadges().join( ',' ),
+	assert.strictEqual(
+		siteLink.getBadges(),
+		badges,
 		'Instantiated site link with badges.'
 	);
 } );

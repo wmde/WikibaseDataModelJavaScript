@@ -63,20 +63,6 @@ var SELF = wb.datamodel.Item = util.inherit(
 	},
 
 	/**
-	 * @param {wikibase.datamodel.SiteLink} siteLink
-	 */
-	addSiteLink: function( siteLink ) {
-		this._siteLinkSet.setSiteLink( siteLink );
-	},
-
-	/**
-	 * @param {wikibase.datamodel.SiteLink} siteLink
-	 */
-	removeSiteLink: function( siteLink ) {
-		this._siteLinkSet.removeSiteLink( siteLink );
-	},
-
-	/**
 	 * @return {wikibase.datamodel.StatementGroupSet}
 	 */
 	getStatements: function() {

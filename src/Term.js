@@ -12,10 +12,20 @@
  *
  * @param {string} languageCode
  * @param {string} text
+ *
+ * @throws {Error} if language code is not a string or empty.
+ * @throws {Error} if text is not a string.
  */
 var SELF = wb.datamodel.Term = function WbDataModelTerm( languageCode, text ) {
-	this.setLanguageCode( languageCode );
-	this.setText( text );
+	if( typeof languageCode !== 'string' || languageCode === '' ) {
+		throw new Error( 'Language code has to be a non-empty string' );
+	}
+	if( typeof text !== 'string' ) {
+		throw new Error( 'Text needs to be a string' );
+	}
+
+	this._languageCode = languageCode;
+	this._text = text;
 };
 
 /**
@@ -42,34 +52,10 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string} languageCode
-	 *
-	 * @throws {Error} if language code is not a string or empty.
-	 */
-	setLanguageCode: function( languageCode ) {
-		if( typeof languageCode !== 'string' || languageCode === '' ) {
-			throw new Error( 'Language code has to be a non-empty string' );
-		}
-		this._languageCode = languageCode;
-	},
-
-	/**
 	 * @return {string}
 	 */
 	getText: function() {
 		return this._text;
-	},
-
-	/**
-	 * @param {string} text
-	 *
-	 * @throws {Error} if text is not a string.
-	 */
-	setText: function( text ) {
-		if( typeof text !== 'string' ) {
-			throw new Error( 'Text needs to be a string' );
-		}
-		this._text = text;
 	},
 
 	/**

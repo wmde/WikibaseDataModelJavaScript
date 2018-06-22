@@ -91,33 +91,6 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string} languageCode
-	 * @param {wikibase.datamodel.Term|null} term
-	 */
-	setLabel: function( languageCode, term ) {
-		if ( term === null || term.getText() === '' ) {
-			this._labels.removeItemByKey( languageCode );
-		} else {
-			this._labels.setItem( languageCode, term );
-		}
-	},
-
-	/**
-	 * @param {string} languageCode
-	 * @param {wikibase.datamodel.Term} label
-	 */
-	removeLabel: function( languageCode, label ) {
-		this._labels.removeItem( languageCode, label );
-	},
-
-	/**
-	 * @param {string} languageCode
-	 */
-	removeLabelFor: function( languageCode ) {
-		this._labels.removeItemByKey( languageCode );
-	},
-
-	/**
 	 * @return {wikibase.datamodel.TermMap}
 	 */
 	getDescriptions: function() {
@@ -150,33 +123,6 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string} languageCode
-	 * @param {wikibase.datamodel.Term|null} term
-	 */
-	setDescription: function( languageCode, term ) {
-		if ( term === null || term.getText() === '' ) {
-			this._descriptions.removeItemByKey( languageCode );
-		} else {
-			this._descriptions.setItem( languageCode, term );
-		}
-	},
-
-	/**
-	 * @param {string} languageCode
-	 * @param {wikibase.datamodel.Term} description
-	 */
-	removeDescription: function( languageCode, description ) {
-		this._descriptions.removeItem( languageCode, description );
-	},
-
-	/**
-	 * @param {string} languageCode
-	 */
-	removeDescriptionFor: function( languageCode ) {
-		this._descriptions.removeItemByKey( languageCode );
-	},
-
-	/**
 	 * @return {wikibase.datamodel.MultiTermMap}
 	 */
 	getAliases: function() {
@@ -206,60 +152,6 @@ $.extend( SELF.prototype, {
 	 */
 	hasAliasesFor: function( languageCode ) {
 		return this._aliases.hasItemForKey( languageCode );
-	},
-
-	/**
-	 * @param {string|wikibase.datamodel.MultiTermMap} languageCodeOrAliases
-	 * @param {wikibase.datamodel.MultiTerm|null} [aliases]
-	 *
-	 * @throws {Error} when passing a MultiTerm without a language code.
-	 * @throws {Error} when passing a MultiTermMap with a language code.
-	 * @throws {Error} when neither passing a MultiTerm nor a MultiTermMap object.
-	 */
-	setAliases: function( languageCodeOrAliases, aliases ) {
-		var languageCode;
-
-		if( typeof languageCodeOrAliases === 'string' ) {
-			languageCode = languageCodeOrAliases;
-		} else {
-			aliases = languageCodeOrAliases;
-		}
-
-		if( aliases === null || aliases instanceof wb.datamodel.MultiTerm ) {
-			if( !languageCode ) {
-				throw new Error( 'Language code the wb.datamodel.MultiTerm object should be set '
-					+ 'for needs to be specified' );
-			}
-			if ( aliases === null || aliases.isEmpty() ) {
-				this._aliases.removeItemByKey( languageCode );
-			} else {
-				this._aliases.setItem( languageCode, aliases );
-			}
-		} else if( aliases instanceof wb.datamodel.MultiTermMap ) {
-			if( languageCode ) {
-				throw new Error( 'Unable to handle language code when setting a '
-					+ 'wb.datamodel.MultiTermMap' );
-			}
-			this._aliases = aliases;
-		} else {
-			throw new Error( 'Aliases need to be specified as wb.datamodel.MultiTerm or '
-				+ 'wb.datamodel.MultiTermMap instance' );
-		}
-	},
-
-	/**
-	 * @param {string} languageCode
-	 * @param {wikibase.datamodel.MultiTerm} aliases
-	 */
-	removeAliases: function( languageCode, aliases ) {
-		this._aliases.removeItem( languageCode, aliases );
-	},
-
-	/**
-	 * @param {string} languageCode
-	 */
-	removeAliasesFor: function( languageCode ) {
-		this._aliases.removeItemByKey( languageCode );
 	},
 
 	/**

@@ -170,11 +170,10 @@ QUnit.test( 'Constructor', function( assert ) {
 	);
 } );
 
-QUnit.test( 'setItemContainer() & getItemContainer()', function( assert ) {
-	assert.expect( 4 );
+QUnit.test( 'getItemContainer()', function( assert ) {
+	assert.expect( 2 );
 	var container = getTestContainer( 'key', 1 ),
-		group = createGroup( 'key', container ),
-		newContainer = getTestContainer( 'key', 3 );
+		group = createGroup( 'key', container );
 
 	assert.strictEqual(
 		container,
@@ -185,21 +184,6 @@ QUnit.test( 'setItemContainer() & getItemContainer()', function( assert ) {
 	assert.ok(
 		group.getItemContainer().equals( container ),
 		'Verified returned container matching returned container.'
-	);
-
-	group.setItemContainer( newContainer );
-
-	assert.strictEqual(
-		newContainer,
-		group.getItemContainer(),
-		'Set new container.'
-	);
-
-	assert.throws(
-		function() {
-			group.setItemContainer( getTestContainer( 'otherKey', 1 ) );
-		},
-		'Throwing error when trying to set a container with mismatching key.'
 	);
 } );
 

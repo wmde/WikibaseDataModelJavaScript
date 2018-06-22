@@ -26,22 +26,6 @@ var testSets = [
 	]
 ];
 
-/**
- * Returns the concatenated string values of a snak list's snaks.
- *
- * @param {wikibase.datamodel.SnakList} snakList
- * @return {string}
- */
-function snakOrder( snakList ) {
-	var snakValues = [];
-
-	snakList.each( function( i, snak ) {
-		snakValues.push( snak.getValue().getValue() );
-	} );
-
-	return snakValues.join( '' );
-}
-
 QUnit.test( 'Constructor', function( assert ) {
 	assert.expect( 6 );
 	for( var i = 0; i < testSets.length; i++ ) {
@@ -79,49 +63,24 @@ QUnit.test( 'getFilteredSnakList()', function( assert ) {
 			'No filtered SnakList returned for an empty SnakList.'
 		);
 
-		var groupedSnakLists = {},
+		var groupedSnaks = {},
 			propertyId;
 
 		for( var j = 0; j < testSets[i].length; j++ ) {
 			propertyId = testSets[i][j].getPropertyId();
-			if( !groupedSnakLists[propertyId] ) {
-				groupedSnakLists[propertyId] = new wb.datamodel.SnakList();
+			if( !groupedSnaks[propertyId] ) {
+				groupedSnaks[propertyId] = [];
 			}
-			groupedSnakLists[propertyId].addItem( testSets[i][j] );
+			groupedSnaks[propertyId].push( testSets[i][j] );
 		}
 
-		for( propertyId in groupedSnakLists ) {
+		for( propertyId in groupedSnaks ) {
 			assert.ok(
-				snakList.getFilteredSnakList( propertyId ).equals( groupedSnakLists[propertyId] ),
+				snakList.getFilteredSnakList( propertyId ).equals( new wb.datamodel.SnakList( groupedSnaks[propertyId] ) ),
 				'Test set #' + i + ': Verified result of getFilteredSnakList() (property id: '
 					+ propertyId + ').'
 			);
 		}
-	}
-} );
-
-QUnit.test( 'merge()', function( assert ) {
-	assert.expect( 6 );
-	for( var i = 0; i < testSets.length; i++ ) {
-		var snakList = new wb.datamodel.SnakList(),
-			newSnak = new wb.datamodel.PropertyNoValueSnak( 'P10' );
-
-		snakList.merge( new wb.datamodel.SnakList( testSets[i] ) );
-
-		assert.ok(
-			snakList.equals( new wb.datamodel.SnakList( testSets[i] ) ),
-			'Merged SnakList into existing SnakList.'
-		);
-
-		snakList.merge( new wb.datamodel.SnakList( [newSnak] ) );
-
-		var extendedSnakList = new wb.datamodel.SnakList( testSets[i] );
-		extendedSnakList.addItem( newSnak );
-
-		assert.ok(
-			snakList.equals( extendedSnakList ),
-			'Merged in another SnakList.'
-		);
 	}
 } );
 

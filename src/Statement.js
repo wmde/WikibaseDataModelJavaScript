@@ -14,10 +14,20 @@
  * @param {wikibase.datamodel.Claim} claim
  * @param {wikibase.datamodel.ReferenceList|null} [references=new wikibase.datamodel.ReferenceList()]
  * @param {number} [rank=wikibase.datamodel.Statement.RANK.NORMAL]
+ *
+ * @throws {Error} if claim is not a Claim instance.
+ * @throws {Error} if references is not a ReferenceList instance.
  */
 var SELF = wb.datamodel.Statement = function WbDataModelStatement( claim, references, rank ) {
-	this.setClaim( claim );
-	this.setReferences( references || new wb.datamodel.ReferenceList() );
+	if( !( claim instanceof wb.datamodel.Claim ) ) {
+		throw new Error( 'Claim needs to be an instance of wikibase.datamodel.Claim' );
+	}
+	if( references && !( references instanceof wb.datamodel.ReferenceList ) ) {
+		throw new Error( 'References have to be supplied in a ReferenceList' );
+	}
+
+	this._claim = claim;
+	this._references = references || new wb.datamodel.ReferenceList();
 	this.setRank( rank === undefined ? wb.datamodel.Statement.RANK.NORMAL : rank );
 };
 
@@ -52,34 +62,10 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {wikibase.datamodel.Claim} claim
-	 *
-	 * @throws {Error} if claim is not a Claim instance.
-	 */
-	setClaim: function( claim ) {
-		if( !( claim instanceof wb.datamodel.Claim ) ) {
-			throw new Error( 'Claim needs to be an instance of wikibase.datamodel.Claim' );
-		}
-		this._claim = claim;
-	},
-
-	/**
 	 * @return {wikibase.datamodel.ReferenceList}
 	 */
 	getReferences: function() {
 		return this._references;
-	},
-
-	/**
-	 * @param {wikibase.datamodel.ReferenceList} references
-	 *
-	 * @throws {Error} if references is not a ReferenceList instance.
-	 */
-	setReferences: function( references ) {
-		if( !( references instanceof wb.datamodel.ReferenceList ) ) {
-			throw new Error( 'References have to be supplied in a ReferenceList' );
-		}
-		this._references = references;
 	},
 
 	/**
@@ -93,10 +79,9 @@ $.extend( SELF.prototype, {
 
 	/**
 	 * @see wikibase.datamodel.Statement.RANK
-	 *
 	 * @param {number} rank
-	 *
 	 * @throws {Error} if rank is not defined in wikibase.datamodel.Statement.RANK.
+	 * @private
 	 */
 	setRank: function( rank ) {
 		for( var i in SELF.RANK ) {

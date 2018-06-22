@@ -12,10 +12,20 @@
  *
  * @param {string} languageCode
  * @param {string[]} texts
+ *
+ * @throws {Error} when the language code is not a string or empty.
+ * @throws {Error} when texts is not an array.
  */
 var SELF = wb.datamodel.MultiTerm = function WbDataModelMultiTerm( languageCode, texts ) {
-	this.setLanguageCode( languageCode );
-	this.setTexts( texts );
+	if( typeof languageCode !== 'string' || languageCode === '' ) {
+		throw new Error( 'Language code has to be a non-empty string' );
+	}
+	if( !$.isArray( texts ) ) {
+		throw new Error( 'texts needs to be an array of strings' );
+	}
+
+	this._languageCode = languageCode;
+	this._texts = texts;
 };
 
 /**
@@ -42,34 +52,10 @@ $.extend( SELF.prototype, {
 	},
 
 	/**
-	 * @param {string} languageCode
-	 *
-	 * @throws {Error} when the language code is not a string or empty.
-	 */
-	setLanguageCode: function( languageCode ) {
-		if( typeof languageCode !== 'string' || languageCode === '' ) {
-			throw new Error( 'Language code has to be a non-empty string' );
-		}
-		this._languageCode = languageCode;
-	},
-
-	/**
 	 * @return {string[]}
 	 */
 	getTexts: function() {
 		return this._texts;
-	},
-
-	/**
-	 * @param {string[]} texts
-	 *
-	 * @throws {Error} when texts is not an array.
-	 */
-	setTexts: function( texts ) {
-		if( !$.isArray( texts ) ) {
-			throw new Error( 'texts needs to be an array of strings' );
-		}
-		this._texts = texts;
 	},
 
 	/**

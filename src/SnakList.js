@@ -31,15 +31,15 @@ wb.datamodel.SnakList = util.inherit( 'WbDataModelSnakList', PARENT, function( s
 			throw new Error( 'Can not filter with no propertyId.' );
 		}
 
-		var filteredSnakList = new wb.datamodel.SnakList();
+		var filteredSnaks = [];
 
 		this.each( function( i, snak ) {
 			if( snak.getPropertyId() === propertyId ) {
-				filteredSnakList.addItem( snak );
+				filteredSnaks.push( snak );
 			}
 		} );
 
-		return filteredSnakList;
+		return new wb.datamodel.SnakList( filteredSnaks );
 	},
 
 	/**
@@ -56,26 +56,6 @@ wb.datamodel.SnakList = util.inherit( 'WbDataModelSnakList', PARENT, function( s
 		}
 
 		return groupedSnakLists;
-	},
-
-	/**
-	 * Adds the Snaks of another SnakList to this SnakList.
-	 *
-	 * @param {wikibase.datamodel.SnakList|null} [snakList=null]
-	 */
-	merge: function( snakList ) {
-		if( !snakList ) {
-			return;
-		}
-
-		var self = this;
-
-		snakList.each( function( i, snak ) {
-			if( !self.hasItem( snak ) ) {
-				self._items.push( snak );
-				self.length++;
-			}
-		} );
 	},
 
 	/**
