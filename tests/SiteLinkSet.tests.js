@@ -5,13 +5,16 @@
 ( function( wb, QUnit ) {
 'use strict';
 
-QUnit.module( 'wikibase.datamodel.SiteLinkSet' );
+var SiteLink = require( '../src/SiteLink.js' ),
+	SiteLinkSet = require( '../src/SiteLinkSet.js' );
+
+QUnit.module( 'SiteLinkSet' );
 
 var testSets = [
 	[],
 	[
-		new wb.datamodel.SiteLink( 'de', 'de-page' ),
-		new wb.datamodel.SiteLink( 'en', 'en-page' )
+		new SiteLink( 'de', 'de-page' ),
+		new SiteLink( 'en', 'en-page' )
 	]
 ];
 
@@ -19,7 +22,7 @@ QUnit.test( 'Constructor', function( assert ) {
 	assert.expect( 2 );
 	for( var i = 0; i < testSets.length; i++ ) {
 		assert.ok(
-			( new wb.datamodel.SiteLinkSet( testSets[i] ) ) instanceof wb.datamodel.SiteLinkSet,
+			( new SiteLinkSet( testSets[i] ) ) instanceof SiteLinkSet,
 			'Test set #' + i + ': Instantiated SiteLinkSet.'
 		);
 	}

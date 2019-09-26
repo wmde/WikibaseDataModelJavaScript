@@ -1,7 +1,8 @@
 ( function( wb ) {
 'use strict';
 
-var PARENT = wb.datamodel.Set;
+var PARENT = wb.datamodel.Set,
+	SiteLink = require( './SiteLink.js' );
 
 /**
  * Set of SiteLink objects.
@@ -13,10 +14,10 @@ var PARENT = wb.datamodel.Set;
  *
  * @constructor
  *
- * @param {wikibase.datamodel.SiteLink[]} [siteLinks=[]]
+ * @param {SiteLink[]} [siteLinks=[]]
  */
-wb.datamodel.SiteLinkSet = util.inherit( 'WbDataModelSiteLinkSet', PARENT, function( siteLinks ) {
-	PARENT.call( this, wb.datamodel.SiteLink, 'getSiteId', siteLinks );
+module.exports = util.inherit( 'WbDataModelSiteLinkSet', PARENT, function( siteLinks ) {
+	PARENT.call( this, SiteLink, 'getSiteId', siteLinks );
 } );
 
 }( wikibase ) );

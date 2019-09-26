@@ -16,7 +16,7 @@
  *
  * @throws {Error} if a required parameter is not specified properly.
  */
-var SELF = wb.datamodel.SiteLink = function WbDataModelSiteLink( siteId, pageName, badges ) {
+var SELF = function WbDataModelSiteLink( siteId, pageName, badges ) {
 	if( siteId === undefined || pageName === undefined ) {
 		throw new Error( 'Required parameters not specified' );
 	}
@@ -106,4 +106,6 @@ $.extend( SELF.prototype, {
 	}
 
 } );
+
+module.exports = SELF;
 }( wikibase, jQuery ) );
