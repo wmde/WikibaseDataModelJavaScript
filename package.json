@@ -43,6 +43,7 @@
   "scripts": {
     "test": "npm run eslint && npm run run-tests",
     "eslint": "eslint .",
-    "run-tests": "karma start --single-run"
+    "run-tests": "karma start --single-run",
+    "auto-watch-tests": "karma start --auto-watch"
   }
 }
